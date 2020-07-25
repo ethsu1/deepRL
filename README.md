@@ -1,3 +1,5 @@
+
+# [How does one utilize machine learning models in reinforcement learning algorithms?]
 Something that always troubled me when trying to understand how machine learning
 could be used in the reinforcement learning framework was that in machine learning, 
 (at least for supervised learning), there is a label. A label defines a ground-truth output, meaning
@@ -15,7 +17,7 @@ and the 'true value' will be (R(s) + discount * max_a Q(s',a))
 
 
 
-ML Models Used
+# [ML Models Used]
 I wanted to experiment with using different machine learning models to estimate the Q function. The complexity of the models
 ranged from something as simple as linear regression to something more powerful like a neural network. 
 It seemed very likely that the environment could not be solved with a linear model, considering when I used
@@ -27,7 +29,7 @@ a linear regression model would not work well to solve the environment compared 
 like a neural network (which has nonlinear capabilities). For example, a larger value for a right velocity (state) and adding more
 right boost (actiom) won't necessarily lead to higher expected future reward.
 
-Why and when to have experience replay?
+# [Why and when to have experience replay?]
 Experience replay helps the model learn more quickly because now it is not learning strictly
 from consecutive samples. The model will sample from its memory and use that sample as input into the
 output Q function before calculating the loss between the output Q value and target Q value.
@@ -38,7 +40,7 @@ weights of the machine learning model (neural network, decision tree, etc), so t
 After the first 128 steps, there would be training (computing and minimizing loss) after every iteration.
 
 
-Why copy weights from the prediction model to the target model?
+#[Why copy weights from the prediction model to the target model?]
 If we use the same network for target Q-values and prediction Q-values, target Q-values and prediction Q-values
 will continue moving with each iterations. It makes it more difficult to get our prediction Q-values to
 approximate the target Q-values if the target Q-values keep moving. Hence we have a separate model for
@@ -46,4 +48,4 @@ target Q-values and we copy the weights from our prediction model to our target 
 way the target Q-values are not moving (more stable).
 
 
-What's the difference between SARSA and Q Learning?
+# [What's the difference between SARSA and Q Learning?]
