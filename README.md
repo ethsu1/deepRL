@@ -1,5 +1,11 @@
+# What is this page about?
+I've always been interested in machine learning and reinforcement learning. So I wanted
+to document this project experimenting with machine learning and reinforcement learning.
+I wanted to note down any breakthroughs/insights in my understanding to reinforcement my own learning 
+as well as help someone else's learning.
 
-# [How does one utilize machine learning models in reinforcement learning algorithms?]
+
+# How does one utilize machine learning models in reinforcement learning algorithms
 Something that always troubled me when trying to understand how machine learning
 could be used in the reinforcement learning framework was that in machine learning, 
 (at least for supervised learning), there is a label. A label defines a ground-truth output, meaning
