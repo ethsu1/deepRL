@@ -22,8 +22,7 @@ would be the temporal difference updates aka the new Q value at a particular sta
 and the 'true value' will be (R(s) + discount * max_a Q(s',a))
 
 
-
-# [ML Models Used]
+# ML Models Used
 I wanted to experiment with using different machine learning models to estimate the Q function. The complexity of the models
 ranged from something as simple as linear regression to something more powerful like a neural network. 
 It seemed very likely that the environment could not be solved with a linear model, considering when I used
@@ -35,7 +34,7 @@ a linear regression model would not work well to solve the environment compared 
 like a neural network (which has nonlinear capabilities). For example, a larger value for a right velocity (state) and adding more
 right boost (actiom) won't necessarily lead to higher expected future reward.
 
-# [Why and when to have experience replay?]
+# Why and when to have experience replay?
 Experience replay helps the model learn more quickly because now it is not learning strictly
 from consecutive samples. The model will sample from its memory and use that sample as input into the
 output Q function before calculating the loss between the output Q value and target Q value.
@@ -46,7 +45,7 @@ weights of the machine learning model (neural network, decision tree, etc), so t
 After the first 128 steps, there would be training (computing and minimizing loss) after every iteration.
 
 
-#[Why copy weights from the prediction model to the target model?]
+# Why copy weights from the prediction model to the target model?
 If we use the same network for target Q-values and prediction Q-values, target Q-values and prediction Q-values
 will continue moving with each iterations. It makes it more difficult to get our prediction Q-values to
 approximate the target Q-values if the target Q-values keep moving. Hence we have a separate model for
@@ -54,4 +53,18 @@ target Q-values and we copy the weights from our prediction model to our target 
 way the target Q-values are not moving (more stable).
 
 
-# [What's the difference between SARSA and Q Learning?]
+# What's the difference between SARSA and Q Learning?
+
+# Why have deep Q Learning or Q learning with ML function approximators?
+The goal of Q learning is to find the optimal policy by finding the optimal Q-values (aka the max expected future reward of state-action pairs).
+In the basic case, the environment contains discrete states and discrete actions. Therefore, one can do Q learning
+via values in a lookup table. But when there are continuous-valued states, the lookup table will be infinitely big.
+This is where Q learning with some sort of function approximator comes in because we can feed in continuous-valued
+states. Now our function approximator represents the lookup table in the basic case.
+
+#Where does Q Learning and SARSA fail?
+Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
+You can no longer find the action that leads to max Q value because there infinite potential actions. For example,
+one of the interesting applications of reinforcement learning is robotic control. Take a robotic hand with 5 fingers. For it learn
+to pick up an object, there are infinite number of actions (the angle of each finger has infinite number of values, the force applied by each finger has infinite number of values, etc.). So Q learning wouldn't work well in these scenarios. You might be able
+to discretize the actions but it probably wouldn't work the best. 
