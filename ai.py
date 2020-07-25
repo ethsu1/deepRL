@@ -21,7 +21,7 @@ class AI:
 		scores_list = []
 		score_window = deque(maxlen=100)
 		episode = 0
-		while np.mean(score_window) < 225 or math.isnan(np.mean(score_window)):
+		while np.mean(score_window) < 225 or math.isnan(np.mean(score_window) or episode < 2000):
 			#solvable steps
 			state = self.env.reset()
 			state = np.reshape(state, (1,self.state_space))
@@ -67,7 +67,9 @@ class AI:
 		plt.xlabel(x_label)
 		plt.ylabel(y_label)
 		plt.title(title)
-		plt.show()
+		temp = title.lower()
+		temp = temp.replace(" ", "_")
+		plt.savefig("./images/" + title+'.png')
 
 
 	def watch(self):
@@ -85,9 +87,9 @@ class AI:
 		self.env.close()
 
 ai1 = AI(NeuralNetwork, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
-ai1.train(800, "Neural Network: Q Learning")
+ai1.train(800, "Neural Network Q Learning")
 #ai1.watch()
 ai2 = AI(LinearRegression, 'CartPole-v0', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
-ai2.train(200, "Linear Regression: Q Learning")
+ai2.train(200, "Linear Regression Q Learning")
 #ai2.watch()
 

@@ -5,7 +5,7 @@ I wanted to note down any breakthroughs/insights in my understanding to reinforc
 as well as help someone else's learning.
 
 
-# How does one utilize machine learning models in reinforcement learning algorithms
+# How does one utilize machine learning models in reinforcement learning algorithms?
 Something that always troubled me when trying to understand how machine learning
 could be used in the reinforcement learning framework was that in machine learning, 
 (at least for supervised learning), there is a label. A label defines a ground-truth output, meaning
@@ -40,9 +40,9 @@ from consecutive samples. The model will sample from its memory and use that sam
 output Q function before calculating the loss between the output Q value and target Q value.
 Experience replay will be used once the memory data structure has been filled to whatever batch size specified.
 This is when the actual training part of the RL model will occur. So that means in my case,
-the very first 128 steps the model will be following the epsilon greedy policy based on the randomized
+the very first 64 steps the model will be following the epsilon greedy policy based on the randomized
 weights of the machine learning model (neural network, decision tree, etc), so there is technically no training.
-After the first 128 steps, there would be training (computing and minimizing loss) after every iteration.
+After the first 64 steps, there would be training (computing and minimizing loss) after every iteration.
 
 
 # Why copy weights from the prediction model to the target model?
@@ -62,9 +62,11 @@ via values in a lookup table. But when there are continuous-valued states, the l
 This is where Q learning with some sort of function approximator comes in because we can feed in continuous-valued
 states. Now our function approximator represents the lookup table in the basic case.
 
-#Where does Q Learning and SARSA fail?
+# When does Q Learning and SARSA fail?
 Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
 You can no longer find the action that leads to max Q value because there infinite potential actions. For example,
 one of the interesting applications of reinforcement learning is robotic control. Take a robotic hand with 5 fingers. For it learn
 to pick up an object, there are infinite number of actions (the angle of each finger has infinite number of values, the force applied by each finger has infinite number of values, etc.). So Q learning wouldn't work well in these scenarios. You might be able
-to discretize the actions but it probably wouldn't work the best. 
+to discretize the actions but it probably wouldn't work that well or solve whatever task you are trying to solve
+
+# What to do for continuous states and continuous actions?
