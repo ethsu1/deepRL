@@ -117,7 +117,7 @@ class SARSANeuralNetwork:
 
 
 	def save(self):
-		self.model.save_weights('./neural_network.pth')
+		self.model.save_weights('./sarsa_neural_network.pth')
 
 	def load(self):
-		self.model.load_weights('./neural_network.pth')
+		self.model.load_weights('./sarsa_neural_network.pth')

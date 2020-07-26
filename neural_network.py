@@ -41,6 +41,7 @@ class NeuralNetwork:
 	def update_target(self):
 		for a, b in zip(self.targetmodel.variables, self.model.variables):
 			a.assign(b)
+
 	def train(self):
 		batch = random.sample(self.memory, self.batch_size)
 		state, next_state, action, reward, done = zip(*batch)
@@ -113,8 +114,8 @@ class NeuralNetwork:
 
 
 	def save(self):
-		self.model.save_weights('./neural_network.pth')
+		self.model.save_weights('./q_neural_network.pth')
 
 	def load(self):
-		self.model.load_weights('./neural_network.pth')
+		self.model.load_weights('./q_neural_network.pth')
 
