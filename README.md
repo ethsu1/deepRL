@@ -55,10 +55,17 @@ like a neural network (which has nonlinear capabilities). For example, a larger 
 right boost (action) won't necessarily lead to higher expected future reward. After trying to model the Q function
 with linear regression and a quasi SVM regression, the end results were not too promising. Watching the agent
 in the environment after training of 2000 episodes, you can tell the agent learned something but obviously 
-it did not learn the optimal polciy. On the other hand, the neural network was able to find an optimal policy reasonably 
+it did not learn the optimal polciy. The rewards for each episode did not increase and the loss did not go down per episode.
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning.png?raw=true "linear regression q learning")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")
+
+
+On the other hand, the neural network was able to find an optimal policy reasonably 
 well, considering it finished training in ~350 episodes. Now that I had my fun messing around with different ML models 
 with reinforcement learning algorithms, I wanted to recreate models that would "solve" the environment.
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural netowrk q learning")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural network q learning")
 
 # Why and when to have experience replay?
 Experience replay helps the model learn more quickly because now it is not learning strictly
