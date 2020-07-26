@@ -1,11 +1,12 @@
 import gym
 from linear_regression import *
 from neural_network import *
+from svm_regression import *
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import deque
 import math
-import torch
+import tensorflow as tf
 class AI:
 	def __init__(self, model, env, epsilon, alpha, gamma, batch_size):
 		self.env = gym.make(env)
@@ -21,13 +22,14 @@ class AI:
 		scores_list = []
 		score_window = deque(maxlen=100)
 		episode = 0
-		while np.mean(score_window) < 225 or math.isnan(np.mean(score_window) or episode < 2000):
+		losslist = []
+		while(((episode < 2000) and (np.nanmean(score_window) < 200.0 or math.isnan(np.mean(score_window))))):
 			#solvable steps
 			state = self.env.reset()
 			state = np.reshape(state, (1,self.state_space))
 			#state = torch.from_numpy(state).float()
 			score = 0
-			losslist = []
+			loss = 0 
 			iterations = []
 			for i in range(num_iterations):
 				self.env.render()
@@ -45,24 +47,26 @@ class AI:
 					break
 				#train the model
 				if(len(self.model.memory) > self.batch_size):
-					loss = self.model.train()
-					losslist.append(loss)
-					iterations.append(i)
+					loss += self.model.train()
+					#losslist.append(loss)
+					#iterations.append(i)
 				state = next_state
 			x_list.append(episode)
 			scores_list.append(score)
 			score_window.append(score)
+			losslist.append(loss)
 			episode += 1
 			print("Episode: " + str(episode) + " Score: "+ str(score))
-			if(np.mean(score_window) >= 225.0):
+			if(np.mean(score_window) >= 200.0):
 				print("Solved at Episode: {} Avg Reward: {}".format(episode, np.mean(score_window)))
 				break
 		self.env.close()
-		#self.graph(iterations, losslist, "iterations", "loss")
+		self.graph(x_list, losslist, "iterations", "loss", title+" loss")
 		self.graph(x_list, scores_list, "episodes", "scores", title)
 		self.model.save()
 
 	def graph(self, x, y, x_label, y_label, title):
+		plt.figure()
 		plt.plot(x,y)
 		plt.xlabel(x_label)
 		plt.ylabel(y_label)
@@ -86,10 +90,12 @@ class AI:
 					break
 		self.env.close()
 
-ai1 = AI(NeuralNetwork, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
-ai1.train(800, "Neural Network Q Learning")
+#ai1 = AI(NeuralNetwork, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
+#ai1.train(800, "Neural Network Q Learning")
 #ai1.watch()
-ai2 = AI(LinearRegression, 'CartPole-v0', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
-ai2.train(200, "Linear Regression Q Learning")
+#ai2 = AI(LinearRegression, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
+#ai2.train(800, "Linear Regression Q Learning")
 #ai2.watch()
+a3 = AI(SVMRegression, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
+a3.train(800, "SVM Regression Q Learning")
 

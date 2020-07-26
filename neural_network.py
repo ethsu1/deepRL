@@ -129,7 +129,7 @@ class NeuralNetwork:
 			loss = self.loss(target_values, predicted)
 		gradients = tape.gradient(loss, self.model.trainable_variables)
 		self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
-		return loss
+		return tf.keras.backend.get_value(loss)
 
 
 	#epsilon greedy

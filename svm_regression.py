@@ -1,30 +1,35 @@
 import random
 import numpy as np
 from collections import deque
+import torch
 import tensorflow as tf
 from tensorflow.keras import Model
-'''
-class LR(torch.nn.Module):
+'''class NN(torch.nn.Module):
 	def __init__(self,  input_dim, output_dim):
-		super(LR, self).__init__()
-		self.linear = torch.nn.Linear(input_dim, output_dim)
+		super(NN, self).__init__()
+		self.layer_1 = torch.nn.Linear(input_dim, 256)
+		self.layer_2 = torch.nn.Linear(256, 128)
+		self.output_layer = torch.nn.Linear(128, output_dim)
 
 	def forward(self, x):
-		return self.linear(x)
-'''
-class LR(Model):
+		layer1 = torch.nn.functional.relu(self.layer_1(x))
+		layer2 = torch.nn.functional.relu(self.layer_2(layer1))
+		return self.output_layer(layer2)'''
+class SVM(Model):
 	def __init__(self, input_dim, output_dim, batch_size):
-		super(LR,self).__init__()
-		#self.input_layer = tf.keras.layers.InputLayer(input_shape=(batch_size, input_dim))
-		#self.output_layer = tf.keras.layers.Dense(output_dim)
-		self.W = tf.Variable(tf.initializers.GlorotUniform()(shape=(input_dim, output_dim)))
-		self.b = tf.Variable(tf.initializers.GlorotUniform()(shape=(batch_size, output_dim)))
+		super(SVM,self).__init__()
+		self.input_layer = tf.keras.layers.InputLayer(input_shape=(batch_size, input_dim))
+		self.layer_1 = tf.keras.layers.experimental.RandomFourierFeatures(output_dim=4096, scale=10., kernel_initializer='gaussian')
+		self.output_layer = tf.keras.layers.Dense(output_dim)
 
 	def call(self,x):
-		return tf.math.add(tf.linalg.matmul(x, self.W),self.b)
+		x = self.input_layer(x)
+		x = self.layer_1(x)
+		return self.output_layer(x)
+		
 
 
-class LinearRegression:
+class SVMRegression:
 	def __init__(self,epsilon, alpha, gamma, states, actions, batch_size):
 		self.epsilon = epsilon
 		self.epsilon_min = 0.01
@@ -36,12 +41,11 @@ class LinearRegression:
 		self.memory_len = int(1e5)
 		self.memory = deque(maxlen=self.memory_len)
 		self.batch_size = batch_size
-		self.model = LR(self.states, self.actions, batch_size)
-		self.targetmodel = LR(self.states, self.actions, batch_size)
-		#self.optimizer = torch.optim.SGD(self.model.parameters(), lr=self.alpha)
+		self.model = SVM(self.states, self.actions, batch_size)
+		self.targetmodel = SVM(self.states, self.actions, batch_size)
+		#self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.alpha)
 		self.optimizer = tf.keras.optimizers.Adam(learning_rate=self.alpha)
 		self.loss = tf.keras.losses.MeanSquaredError()
-
 
 	def update_target(self):
 		'''for target_parameters, q_parameters in zip(self.targetmodel.parameters(), self.model.parameters()):
@@ -49,7 +53,6 @@ class LinearRegression:
 		#self.targetmodel.set_weights(self.model.get_weights())
 		for a, b in zip(self.targetmodel.variables, self.model.variables):
 			a.assign(b)
-
 	def train(self):
 		batch = random.sample(self.memory, self.batch_size)
 		state, next_state, action, reward, done = zip(*batch)
@@ -126,6 +129,7 @@ class LinearRegression:
 		self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
 		return tf.keras.backend.get_value(loss)
 
+
 	#epsilon greedy
 	def pick_action(self, state):
 		#exploration
@@ -141,26 +145,32 @@ class LinearRegression:
 			return tf.keras.backend.get_value(tf.keras.backend.argmax(q_values))[0]
 
 	def action(self, state):
+		#state = torch.from_numpy(state)
+		#q_values = self.model(state)
+		#return torch.argmax(q_values).item()
 		state = tf.convert_to_tensor(state)
 		q_values = self.model(state)
 		return tf.keras.backend.get_value(tf.keras.backend.argmax(q_values))[0]
 
 	def add_to_memory(self, data):
 		state, next_state, action, reward, done = data
+		'''state = torch.from_numpy(state)
+		next_state = torch.from_numpy(next_state)
+		action = torch.tensor([[action]])
+		reward = torch.tensor([[reward]],dtype=torch.float)
+		done = torch.tensor([[done]], dtype=torch.float)'''
 		state = tf.convert_to_tensor(state)
 		next_state = tf.convert_to_tensor(next_state)
 		action = tf.convert_to_tensor([action])
 		reward = tf.convert_to_tensor([[reward]], dtype=tf.float32)
 		done = tf.convert_to_tensor([[done]], dtype=tf.float32)
+
 		select_memory = (state, next_state,action,reward,done)
 		self.memory.append(select_memory)
 
 
 	def save(self):
-		self.model.save_weights('./linear_regression.pth')
+		self.model.save_weights('./neural_network.pth')
 
 	def load(self):
-		self.model.load_weights('./linear_regression.pth')
-
-
-
+		self.model.load_weights('./neural_network.pth')
