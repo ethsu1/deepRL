@@ -25,7 +25,7 @@ and the 'true value' will be (R(s) + discount * max_a Q(s',a))
 
 # What's the difference between SARSA and Q Learning?
 
-# Why have deep Q Learning or Q learning with ML function approximators?
+# Why use deep Q Learning or Q learning with ML function approximators?
 The goal of Q learning is to find the optimal policy by finding the optimal Q-values (aka the max expected future reward of state-action pairs).
 In the basic case, the environment contains discrete states and discrete actions. Therefore, one can do Q learning
 via values in a lookup table. But when there are continuous-valued states, the lookup table will be infinitely big.
