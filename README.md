@@ -58,7 +58,7 @@ in the environment after training of 2000 episodes, you can tell the agent learn
 it did not learn the optimal polciy. On the other hand, the neural network was able to find an optimal policy reasonably 
 well, considering it finished training in ~350 episodes. Now that I had my fun messing around with different ML models 
 with reinforcement learning algorithms, I wanted to recreate models that would "solve" the environment.
-![Alt text](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "Title")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural netowrk q learning")
 
 # Why and when to have experience replay?
 Experience replay helps the model learn more quickly because now it is not learning strictly
