@@ -62,13 +62,13 @@ it did not learn the optimal polciy. The rewards for each episode did not increa
 
 Linear regression unable to learn the nonlinear patterns of landing (as seen with its barrel roll attempts)
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning.png?raw=true "linear regression q learning")
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")
 
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/linear_regression.gif?raw=true)
 
 
 Quasi SVM regression worked to some extent but could not solve the environment.
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")
 
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/svm.gif?raw=true)
