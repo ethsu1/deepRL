@@ -4,22 +4,23 @@ from collections import deque
 import torch
 import tensorflow as tf
 from tensorflow.keras import Model
-
-class SVM(Model):
+class NN(Model):
 	def __init__(self, input_dim, output_dim, batch_size):
-		super(SVM,self).__init__()
+		super(NN,self).__init__()
 		self.input_layer = tf.keras.layers.InputLayer(input_shape=(batch_size, input_dim))
-		self.layer_1 = tf.keras.layers.experimental.RandomFourierFeatures(output_dim=4096, scale=10., kernel_initializer='gaussian')
+		self.layer_1 = tf.keras.layers.Dense(128, activation='relu')
+		self.layer_2 = tf.keras.layers.Dense(128, activation='relu')
 		self.output_layer = tf.keras.layers.Dense(output_dim)
 
 	def call(self,x):
 		x = self.input_layer(x)
 		x = self.layer_1(x)
+		x = self.layer_2(x)
 		return self.output_layer(x)
 		
 
 
-class SVMRegression:
+class SARSANeuralNetwork:
 	def __init__(self,epsilon, alpha, gamma, states, actions, batch_size):
 		self.epsilon = epsilon
 		self.epsilon_min = 0.01
@@ -31,23 +32,27 @@ class SVMRegression:
 		self.memory_len = int(1e5)
 		self.memory = deque(maxlen=self.memory_len)
 		self.batch_size = batch_size
-		self.model = SVM(self.states, self.actions, batch_size)
-		self.targetmodel = SVM(self.states, self.actions, batch_size)
+		self.model = NN(self.states, self.actions, batch_size)
+		self.targetmodel = NN(self.states, self.actions, batch_size)
+		#self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.alpha)
 		self.optimizer = tf.keras.optimizers.Adam(learning_rate=self.alpha)
 		self.loss = tf.keras.losses.MeanSquaredError()
 
 	def update_target(self):
 		for a, b in zip(self.targetmodel.variables, self.model.variables):
 			a.assign(b)
+
 	def train(self):
 		batch = random.sample(self.memory, self.batch_size)
 		state, next_state, action, reward, done = zip(*batch)
+	
 		state_matrix = tf.concat(state, 0)
 		next_state_matrix = tf.concat(next_state,0)
 		action_matrix = tf.concat(action, 0)
 		reward_matrix = tf.concat(reward, 0)
 		done_matrix = tf.concat(done, 0)
-	
+
+
 		row_indices = tf.range(tf.shape(action_matrix)[0])
 		full_indices = tf.stack([row_indices, action_matrix], axis=1)
 		with tf.GradientTape() as tape:
@@ -57,8 +62,14 @@ class SVMRegression:
 			predicted = tf.reshape(predicted, (predicted.shape[0],1))
 			#no gradient will be backpropped on this variable
 			target_values = tf.stop_gradient(self.targetmodel(next_state_matrix))
-			#get only associated q value for max action (batch_size,)
-			temp = tf.keras.backend.max(target_values, axis=1)
+			if(random.random() < self.epsilon):
+				temp_actions = tf.random.uniform(shape=[action_matrix.shape[0]], minval=0, maxval=self.actions-1, dtype=tf.dtypes.int32)
+				temp_indices = tf.range(tf.shape(temp_actions)[0])
+				temp_full_indices = tf.stack([temp_indices, temp_actions], axis=1)
+				temp = tf.gather_nd(target_values, temp_full_indices)
+			else:
+				#get only associated q value for max action (batch_size,)
+				temp = tf.keras.backend.max(target_values, axis=1)
 			#reshape to (batch_size,1)
 			target = tf.reshape(temp,(temp.shape[0],1))
 			#predicted = (64x1) and target = (64x1), we only need to fit 
@@ -70,6 +81,7 @@ class SVMRegression:
 
 			target_values = tf.math.add(reward_matrix, product)
 			
+
 			loss = self.loss(target_values, predicted)
 		gradients = tape.gradient(loss, self.model.trainable_variables)
 		self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
@@ -105,7 +117,7 @@ class SVMRegression:
 
 
 	def save(self):
-		self.model.save_weights('./svm.pth')
+		self.model.save_weights('./neural_network.pth')
 
 	def load(self):
-		self.model.load_weights('./svm.pth')
+		self.model.load_weights('./neural_network.pth')

@@ -1,8 +1,8 @@
 # What is this page about?
 I've always been interested in machine learning and reinforcement learning. So I wanted
 to document this project experimenting with machine learning and reinforcement learning.
-I wanted to note down any breakthroughs/insights in my understanding to reinforcement my own learning 
-as well as help someone else's learning.
+I wanted to note down any breakthroughs/insights in my understanding to strengthen my own learning 
+as well as potentially help someone else's understanding.
 
 
 # How does one utilize machine learning models in reinforcement learning algorithms?
@@ -21,10 +21,6 @@ would be the temporal difference updates aka the new Q value at a particular sta
 (R(s) + discount * max_a Q(s',a)). The model will output the particular Q value for state and action Q(s,a)
 and the 'true value' will be (R(s) + discount * max_a Q(s',a))
 
-
-
-# What's the difference between SARSA and Q Learning?
-
 # Why use deep Q Learning or Q learning with ML function approximators?
 The goal of Q learning is to find the optimal policy by finding the optimal Q-values (aka the max expected future reward of state-action pairs).
 In the basic case, the environment contains discrete states and discrete actions. Therefore, one can do Q learning
@@ -32,15 +28,22 @@ via values in a lookup table. But when there are continuous-valued states, the l
 This is where Q learning with some sort of function approximator comes in because we can feed in continuous-valued
 states. Now our function approximator represents the lookup table in the basic case.
 
-# When does Q Learning and SARSA fail?
-Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
-You can no longer find the action that leads to max Q value because there infinite potential actions. For example,
-one of the interesting applications of reinforcement learning is robotic control. Take a robotic hand with 5 fingers. For it learn
-to pick up an object, there are infinite number of actions (the angle of each finger has infinite number of values, the force applied by each finger has infinite number of values, etc.). So Q learning wouldn't work well in these scenarios. You might be able
-to discretize the actions but it probably wouldn't work that well or solve whatever task you are trying to solve
+# Why and when to have experience replay?
+Experience replay helps the model learn more quickly because now it is not learning strictly
+from consecutive samples. The model will sample from its memory and use that sample as input into the
+output Q function before calculating the loss between the output Q value and target Q value.
+Experience replay will be used once the memory data structure has been filled to whatever batch size specified.
+This is when the actual training part of the RL model will occur. So that means in my case,
+the very first 64 steps the model will be following the epsilon greedy policy based on the randomized
+weights of the machine learning model (neural network, decision tree, etc), so there is technically no training.
+After the first 64 steps, there would be training (computing and minimizing loss) after every iteration.
 
-# What to do for continuous states and continuous actions?
-
+# Why copy weights from the prediction model to the target model?
+If we use the same network for target Q-values and prediction Q-values, target Q-values and prediction Q-values
+will continue moving with each iterations. It makes it more difficult to get our prediction Q-values to
+approximate the target Q-values if the target Q-values keep moving. Hence we have a separate model for
+target Q-values and we copy the weights from our prediction model to our target model every so often. This
+way the target Q-values are not moving (more stable).
 
 # ML Models Used
 I wanted to experiment with using different machine learning models to estimate the Q function. The complexity of the models
@@ -60,29 +63,38 @@ it did not learn the optimal polciy. The rewards for each episode did not increa
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")
+PLACE GIF
+PLACE GIF
 
 
 On the other hand, the neural network was able to find an optimal policy reasonably 
-well, considering it finished training in ~350 episodes. Now that I had my fun messing around with different ML models 
-with reinforcement learning algorithms, I wanted to recreate models that would "solve" the environment.
+well, considering it finished training in ~400 episodes. 
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural network q learning")
 
-# Why and when to have experience replay?
-Experience replay helps the model learn more quickly because now it is not learning strictly
-from consecutive samples. The model will sample from its memory and use that sample as input into the
-output Q function before calculating the loss between the output Q value and target Q value.
-Experience replay will be used once the memory data structure has been filled to whatever batch size specified.
-This is when the actual training part of the RL model will occur. So that means in my case,
-the very first 64 steps the model will be following the epsilon greedy policy based on the randomized
-weights of the machine learning model (neural network, decision tree, etc), so there is technically no training.
-After the first 64 steps, there would be training (computing and minimizing loss) after every iteration.
+PLACE GIF
+Now that I had my fun messing around with different ML models 
+with Q learning, I wanted to recreate models that would "solve" the environment using different reinforcement learning algorithms
 
+# What's the difference between SARSA and Q Learning?
+SARSA is an on-policy algorithm while Q learning is off-policy. So this means for SARSA, when updating the Q-values, it follows
+the epsilon greedy policy, which is the same policy it uses to interact with the environment. In Q learning, it
+takes the absolute greedy policy (aka the action that yields that largest expected reward) but uses the epsilon greedy policy
+to interact with environment (hence why Q learning is off-policy). 
 
-# Why copy weights from the prediction model to the target model?
-If we use the same network for target Q-values and prediction Q-values, target Q-values and prediction Q-values
-will continue moving with each iterations. It makes it more difficult to get our prediction Q-values to
-approximate the target Q-values if the target Q-values keep moving. Hence we have a separate model for
-target Q-values and we copy the weights from our prediction model to our target model every so often. This
-way the target Q-values are not moving (more stable).
+# How did deep SARSA do compared to deep Q learning?
+SARSA is basically more conservative in a sense because in the earlier episodes, its more likely to take random actions
+due to a higher epsilon value. Once the epsilon decays, it begins to take the more optimal actions. In the earlier episodes,
+I could tell SARSA was being more conservative because it seemed to hover, seemingly worried to drop down too much. This seems
+to make sense because crashing would lead to extremely negative rewards.
+
+# When does Q Learning and SARSA fail?
+Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
+You can no longer find the action that leads to max Q value because there infinite potential actions. For example,
+one of the interesting applications of reinforcement learning is robotic control. Take a robotic hand with 5 fingers. For it learn
+to pick up an object, there are infinite number of actions (the angle of each finger has infinite number of values, the force applied by each finger has infinite number of values, etc.). So Q learning wouldn't work well in these scenarios. You might be able
+to discretize the actions but it probably wouldn't work that well or solve whatever task you are trying to solve
+
+# What to do for continuous states and continuous actions?
+
 
 

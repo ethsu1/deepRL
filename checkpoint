@@ -1,2 +1,0 @@
-model_checkpoint_path: "neural_network.pth"
-all_model_checkpoint_paths: "neural_network.pth"

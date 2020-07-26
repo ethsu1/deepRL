@@ -2,6 +2,7 @@ import gym
 from linear_regression import *
 from neural_network import *
 from svm_regression import *
+from sarsa_neural_network import *
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import deque
@@ -48,8 +49,6 @@ class AI:
 				#train the model
 				if(len(self.model.memory) > self.batch_size):
 					loss += self.model.train()
-					#losslist.append(loss)
-					#iterations.append(i)
 				state = next_state
 			x_list.append(episode)
 			scores_list.append(score)
@@ -96,6 +95,9 @@ class AI:
 #ai2 = AI(LinearRegression, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
 #ai2.train(800, "Linear Regression Q Learning")
 #ai2.watch()
-a3 = AI(SVMRegression, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
-a3.train(800, "SVM Regression Q Learning")
+#ai3 = AI(SVMRegression, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
+#a3.train(800, "SVM Regression Q Learning")
+#ai3.watch()
+ai4 = AI(SARSANeuralNetwork, 'LunarLander-v2', epsilon=1.0, alpha=5e-4,gamma=0.99, batch_size=64)
+ai4.train(800, "SARSA Neural Network")
 
