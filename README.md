@@ -64,14 +64,14 @@ Linear regression unable to learn the nonlinear patterns of landing (as seen wit
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning.png?raw=true "linear regression q learning")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
 
-![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/linear_regression.gif)
+![](https://github.com/ethsu1/deepRL/blob/master/images/linear_regression.gif)
 
 
 Quasi SVM regression worked to some extent but could not solve the environment.
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")
 
-![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/svm.gif)
+![](https://github.com/ethsu1/deepRL/blob/master/images/svm.gif)
 
 
 On the other hand, the neural network was able to find an optimal policy reasonably 
@@ -79,7 +79,7 @@ well, considering it finished training in ~425 episodes.
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural network q learning")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning_loss.png?raw=true "neural network q learning loss")
 
-![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/dqn.gif)
+![](https://github.com/ethsu1/deepRL/blob/master/images/dqn.gif)
 Now that I had my fun messing around with different ML models 
 with Q learning, I wanted to recreate models that would "solve" the environment using different reinforcement learning algorithms
 
@@ -95,12 +95,12 @@ due to a higher epsilon value. Once the epsilon decays, it begins to take the mo
 I could tell SARSA was being more conservative because it seemed to hover, seemingly worried to drop down too much. This seems
 to make sense because crashing would lead to extremely negative rewards.
 
-![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/sarsa_beginning.gif)
+![](https://github.com/ethsu1/deepRL/blob/master/images/sarsa_beginning.gif)
 
 But it eventually "solved" the environment as seen below (in ~550 episodes)
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SARSA_Neural_Network.png?raw=true "sarsa")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SARSA_Neural_Network_loss.png?raw=true "sarsa loss")
-![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/sarsa.gif)
+![](https://github.com/ethsu1/deepRL/blob/master/images/sarsa.gif)
 
 # When does Q Learning and SARSA fail?
 Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
