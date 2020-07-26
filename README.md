@@ -68,10 +68,11 @@ PLACE GIF
 
 
 On the other hand, the neural network was able to find an optimal policy reasonably 
-well, considering it finished training in ~400 episodes. 
+well, considering it finished training in ~425 episodes. 
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural network q learning")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning_loss.png?raw=true "neural network q learning loss")
 
-PLACE GIF
+![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/dqn.gif)
 Now that I had my fun messing around with different ML models 
 with Q learning, I wanted to recreate models that would "solve" the environment using different reinforcement learning algorithms
 
@@ -86,9 +87,13 @@ SARSA is basically more conservative in a sense because in the earlier episodes,
 due to a higher epsilon value. Once the epsilon decays, it begins to take the more optimal actions. In the earlier episodes,
 I could tell SARSA was being more conservative because it seemed to hover, seemingly worried to drop down too much. This seems
 to make sense because crashing would lead to extremely negative rewards.
-PLACE SARSA BEGINNING GIF
 
-But it eventually "solved" the environment as seen below.
+![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/sarsa_beginning.gif)
+
+But it eventually "solved" the environment as seen below (in ~550 episodes)
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SARSA_Neural_Network.png?raw=true "sarsa")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SARSA_Neural_Network_loss.png?raw=true "sarsa loss")
+![Alt Text](https://github.com/ethsu1/deepRL/blob/master/images/sarsa.gif)
 
 # When does Q Learning and SARSA fail?
 Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
