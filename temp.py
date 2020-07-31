@@ -8,6 +8,7 @@ import tensorflow as tf
 class DDPGAI:
 	def __init__(self, model, env, gamma, batch_size):
 		self.env = gym.make(env)
+		print(self.env._max_episode_steps)
 		self.action_space = self.env.action_space.shape[0]
 		self.state_space = self.env.observation_space.shape[0]
 		self.scaled_action = self.env.action_space.high[0]
@@ -32,8 +33,8 @@ class DDPGAI:
 			loss1 = 0
 			loss2 = 0
 			iterations = []
-			#while True:
-			for i in range(num_iterations):
+			steps = 0
+			while not done and steps < self.env._max_episode_steps:
 				self.env.render()
 				action = self.model.take_action(state)
 				next_state, reward, done, _ = self.env.step(action[0])
@@ -51,6 +52,7 @@ class DDPGAI:
 					loss1 += temp1
 					loss2 += temp2
 				state = next_state
+				steps += 1
 			x_list.append(episode)
 			scores_list.append(score)
 			score_window.append(score)
