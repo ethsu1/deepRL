@@ -34,6 +34,7 @@ class DDPGAI:
 			loss2 = 0
 			iterations = []
 			steps = 0
+			done = False
 			while not done and steps < self.env._max_episode_steps:
 				self.env.render()
 				action = self.model.take_action(state)
