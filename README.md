@@ -112,7 +112,47 @@ to discretize the actions but it probably wouldn't work that well or solve whate
 
 # What to do for continuous action spaces?
 Since you can't use Q learning and SARSA for continuous action spaces, we look towards policy gradients. 
-Q learning and SARSA are value estimation algorithms where you are essentially choosing an action via Q-values.
+Q learning and SARSA are value estimation algorithms where you are essentially choosing an action via Q-values. This where policy gradients
+come into play because they work for continuous action spaces. Now because our actions are continuous, whatever functions we
+are trying to estimate are differentiable with respect to actions. So now we can directly learn a policy function rather indirectly
+learning it via a value function (like Q learning). We can directly learn a policy function because the goal of a policy gradient
+is to maximize expected future rewards. Usually a neural network learns the policy function and basically learns a mean and standard deviation 
+for each dimension of the action space. For example, there can be 4 actions, like jump, crouch, move left, and move right. But how would we determine
+how much to do each action for a given state? For a stochastic policy, we use the neural network and its learned parameters of mean and standard deviation to determine how much of each action do. The mean and standard deviation can be used to specify a Gaussian distribution and we sample 
+from that distribution to know how much of each action to do. A policy gradient wants to increase the probabilities of  actions that lead to higher rewards and decreease the probabilities of actions that lead to lower rewards. Hence we sample from those specificed probability distributions 
+in order to know how to select actions in a continuous action space.
+
+
+#Okay, so how do policy gradients related to Deterministic Deep Policy Gradients?
+DDPG follows an actor-critic framework where the actor learns a deterministic policy and the critic evaluates the actions the actor
+outputs via learning the Q value function. DDPG is like an extension of deep Q learning but for continuous action spaces.
+But notice that DDPG learns a deterministic policy. That means it won't be learning the mean and standard deviation of each action dimension as
+that would require us to sample from probability distribution to know how much of each action to take, making it a stochastic policy.
+So what does the actor neural network output then? The actor network would just ouput the mean of each action dimension and utilize those means
+as the actions the agent would take.
+
+#How to handle exploration in continuous action spaces?
+In deep Q learning, we followed an epsilon greedy policy that allowed the agent to explore and exploit best actions based on a decaying 
+epsilon value. It was easy to explore via random actions because we had finite discrete actions. But what about for continuous action
+spaces. How would the agent explore the possible action space? In the DDPG paper, the authors sampled a vector from time-correleated OU Noise,
+which to my knowledge is some sort of distribution. But it turns out simple mean-zero Gaussian noise works just as well. So when implementing 
+my DDPG model, I sampled from the Gaussian distribution that had zero mean and 0.1 standard deviation. I wanted to keep everything relatively 
+simple so that I could actually learn all the aspects of the DDPG algorithm/model.
+
+#DDPG Architecture
+I more or less followed the architecture laid out in the DDPG paper, having my actor and critic models being a two layer neural network
+with hidden dimensions of 400 and 300 respectively. I utilized soft updates to update the target network parameters with the model network parameters.
+I specified the learning rates according to the paper as well, with actor's learning rate being 1e-4 and the critic's learning rate being 1e-3.
+
+#Results of DDPG
+Training the model took alot longer than DQN because we are exploring continuous actions. I trainined the model on the BipedalWalker-v3 environment
+as well as the LunarLanderContinuous-v2 environment. 
+
+
+#Conclusion
+Overall I strengthened my knowledge about deep reinforcement learning quite a bit and was able to understand the basics of policy gradient methods.
+I now understand the use cases for several different reinforcement learning algorithms. Deep reinforcement learning has become more clear and I think
+I have a better foundation to learn about all the other advancement algorithms that have been developed in recent years, such as TRPO and PPO.
 
 
 
