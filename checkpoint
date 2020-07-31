@@ -1,2 +1,2 @@
-model_checkpoint_path: "q_neural_network.pth"
-all_model_checkpoint_paths: "q_neural_network.pth"
+model_checkpoint_path: "ddpg_critic.pth"
+all_model_checkpoint_paths: "ddpg_critic.pth"
