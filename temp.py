@@ -25,7 +25,7 @@ class DDPGAI:
 		losslist1 = []
 		losslist2 = []
 		self.model.copy_target()
-		while((np.nanmean(score_window) < 200.0 or math.isnan(np.mean(score_window)))):
+		while((np.nanmean(score_window) < 225.0 or math.isnan(np.mean(score_window)))):
 			#solvable steps
 			state = self.env.reset()
 			state = np.reshape(state, (1,self.state_space))
@@ -61,7 +61,7 @@ class DDPGAI:
 			losslist2.append(loss2)
 			episode += 1
 			print("Episode: " + str(episode) + " Score: "+ str(score))
-			if(np.mean(score_window) >= 200.0):
+			if(np.mean(score_window) >= 225.0):
 				print("Solved at Episode: {} Avg Reward: {}".format(episode, np.mean(score_window)))
 				break
 		self.env.close()
@@ -86,15 +86,19 @@ class DDPGAI:
 		self.model.load()
 		for i in range(10):
 			state = self.env.reset()
-			for j in range(400):
+			score = 0
+			for j in range(self.env._max_episode_steps):
 				#state = np.asarray(state, dtype=np.float64)
 				state = np.reshape(state, (1,self.state_space))
 				action = self.model.action(state)
 				self.env.render()
 				state, reward, done, _ = self.env.step(action[0])
+				score += reward
 				if done:
 					break
+			print("Testing: Score: "+ str(score))
 		self.env.close()
 
 ddpg = DDPGAI(DDPG, 'LunarLanderContinuous-v2', gamma=0.99, batch_size=64)
 ddpg.train(800, "Deep Deterministic Policy Gradient temp")
+#ddpg.watch()
