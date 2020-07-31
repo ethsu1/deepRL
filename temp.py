@@ -100,5 +100,5 @@ class DDPGAI:
 		self.env.close()
 
 ddpg = DDPGAI(DDPG, 'LunarLanderContinuous-v2', gamma=0.99, batch_size=64)
-ddpg.train(800, "Deep Deterministic Policy Gradient temp")
+ddpg.train(800, "Deep Deterministic Policy Gradient LunarLanderContinuous")
 #ddpg.watch()
