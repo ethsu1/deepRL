@@ -29,7 +29,9 @@ This is where Q learning with some sort of function approximator comes in becaus
 states. Now our function approximator represents the lookup table in the basic case.
 
 # Why and when to have experience replay?
-Experience replay helps the model learn more quickly because now it is not learning strictly
+In deep reinforcement learning, many models utilize a replay buffer, which is just a data structure
+holding tuples of state, next state, action, and reward. These tuples are just relevant information for
+sampling the environment. Experience replay helps the model learn more quickly because now it is not learning strictly
 from consecutive samples. The model will sample from its memory and use that sample as input into the
 output Q function before calculating the loss between the output Q value and target Q value.
 Experience replay will be used once the memory data structure has been filled to whatever batch size specified.
@@ -109,5 +111,8 @@ to pick up an object, there are infinite number of actions (the angle of each fi
 to discretize the actions but it probably wouldn't work that well or solve whatever task you are trying to solve.
 
 # What to do for continuous action spaces?
+Since you can't use Q learning and SARSA for continuous action spaces, we look towards policy gradients. 
+Q learning and SARSA are value estimation algorithms where you are essentially choosing an action via Q-values.
+
 
 

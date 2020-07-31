@@ -1,7 +1,6 @@
 import random
 import numpy as np
 from collections import deque
-import torch
 import tensorflow as tf
 from tensorflow.keras import Model
 class NN(Model):
