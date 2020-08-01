@@ -123,7 +123,7 @@ from that distribution to know how much of each action to do. A policy gradient 
 in order to know how to select actions in a continuous action space.
 
 
-#Okay, so how do policy gradients related to Deterministic Deep Policy Gradients?
+# Okay, so how do policy gradients related to Deterministic Deep Policy Gradients?
 DDPG follows an actor-critic framework where the actor learns a deterministic policy and the critic evaluates the actions the actor
 outputs via learning the Q value function. DDPG is like an extension of deep Q learning but for continuous action spaces.
 But notice that DDPG learns a deterministic policy. That means it won't be learning the mean and standard deviation of each action dimension as
@@ -131,7 +131,7 @@ that would require us to sample from probability distribution to know how much o
 So what does the actor neural network output then? The actor network would just ouput the mean of each action dimension and utilize those means
 as the actions the agent would take.
 
-#How to handle exploration in continuous action spaces?
+# How to handle exploration in continuous action spaces?
 In deep Q learning, we followed an epsilon greedy policy that allowed the agent to explore and exploit best actions based on a decaying 
 epsilon value. It was easy to explore via random actions because we had finite discrete actions. But what about for continuous action
 spaces. How would the agent explore the possible action space? In the DDPG paper, the authors sampled a vector from time-correleated OU Noise,
@@ -139,17 +139,23 @@ which to my knowledge is some sort of distribution. But it turns out simple mean
 my DDPG model, I sampled from the Gaussian distribution that had zero mean and 0.1 standard deviation. I wanted to keep everything relatively 
 simple so that I could actually learn all the aspects of the DDPG algorithm/model.
 
-#DDPG Architecture
+# DDPG Architecture
 I more or less followed the architecture laid out in the DDPG paper, having my actor and critic models being a two layer neural network
 with hidden dimensions of 400 and 300 respectively. I utilized soft updates to update the target network parameters with the model network parameters.
 I specified the learning rates according to the paper as well, with actor's learning rate being 1e-4 and the critic's learning rate being 1e-3.
 
-#Results of DDPG
+# Results of DDPG
 Training the model took alot longer than DQN because we are exploring continuous actions. I trainined the model on the BipedalWalker-v3 environment
 as well as the LunarLanderContinuous-v2 environment. 
 
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_LunarLanderContinuous_loss_(critic).png?raw=true "Lunar Lander critic loss")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_LunarLanderContinuous_loss_(actor).png?raw=true "Lunar Lander critic actor")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_LunarLanderContinuous.png?raw=true "Lunar Lander reward")
+![alt text](https://github.com/ethsu1/deepRL/blob/master/images/ddpg_lunar.gif?raw=true)
 
-#Conclusion
+
+
+# Conclusion
 Overall I strengthened my knowledge about deep reinforcement learning quite a bit and was able to understand the basics of policy gradient methods.
 I now understand the use cases for several different reinforcement learning algorithms. Deep reinforcement learning has become more clear and I think
 I have a better foundation to learn about all the other advancement algorithms that have been developed in recent years, such as TRPO and PPO.

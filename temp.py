@@ -8,7 +8,7 @@ import tensorflow as tf
 class DDPGAI:
 	def __init__(self, model, env, gamma, batch_size):
 		self.env = gym.make(env)
-		print(self.env._max_episode_steps)
+		print(self.env.action_space.high[0])
 		self.action_space = self.env.action_space.shape[0]
 		self.state_space = self.env.observation_space.shape[0]
 		self.scaled_action = self.env.action_space.high[0]
@@ -100,5 +100,5 @@ class DDPGAI:
 		self.env.close()
 
 ddpg = DDPGAI(DDPG, 'LunarLanderContinuous-v2', gamma=0.99, batch_size=64)
-ddpg.train(800, "Deep Deterministic Policy Gradient LunarLanderContinuous")
-#ddpg.watch()
+#ddpg.train(800, "Deep Deterministic Policy Gradient LunarLanderContinuous")
+ddpg.watch()
