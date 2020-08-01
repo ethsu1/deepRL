@@ -8,7 +8,6 @@ import tensorflow as tf
 class DDPGAI:
 	def __init__(self, model, env, gamma, batch_size):
 		self.env = gym.make(env)
-		print(self.env.action_space.high[0])
 		self.action_space = self.env.action_space.shape[0]
 		self.state_space = self.env.observation_space.shape[0]
 		self.scaled_action = self.env.action_space.high[0]
