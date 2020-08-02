@@ -58,6 +58,8 @@ class DDPGAI:
 			score_window.append(score)
 			losslist1.append(loss1)
 			losslist2.append(loss2)
+			if(episode % 100 == 0):
+				self.model.save()
 			episode += 1
 			print("Episode: " + str(episode) + " Score: "+ str(score))
 			if(np.mean(score_window) >= 250.0):
