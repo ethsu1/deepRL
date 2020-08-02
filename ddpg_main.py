@@ -24,7 +24,7 @@ class DDPGAI:
 		losslist1 = []
 		losslist2 = []
 		self.model.copy_target()
-		while((np.nanmean(score_window) < 300.0 or math.isnan(np.mean(score_window)))):
+		while((np.nanmean(score_window) < 250.0 or math.isnan(np.mean(score_window)))):
 			#solvable steps
 			state = self.env.reset()
 			state = np.reshape(state, (1,self.state_space))
@@ -34,7 +34,7 @@ class DDPGAI:
 			iterations = []
 			done = False
 			steps = 0
-			while not done and steps < self.env._max_episode_steps:
+			while not done and steps < 2000:
 			#for i in range(num_iterations):
 				self.env.render()
 				action = self.model.take_action(state)
@@ -60,7 +60,7 @@ class DDPGAI:
 			losslist2.append(loss2)
 			episode += 1
 			print("Episode: " + str(episode) + " Score: "+ str(score))
-			if(np.mean(score_window) >= 300.0):
+			if(np.mean(score_window) >= 250.0):
 				print("Solved at Episode: {} Avg Reward: {}".format(episode, np.mean(score_window)))
 				break
 		self.env.close()
