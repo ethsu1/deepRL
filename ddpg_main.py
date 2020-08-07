@@ -62,7 +62,7 @@ class DDPGAI:
 				self.model.save()
 			episode += 1
 			print("Episode: " + str(episode) + " Score: "+ str(score))
-			print("Episode: " + str(episode) + " Score: "+ str(np.mean(score_window)))
+			print("Episode: " + str(episode) + " Avg Score: "+ str(np.mean(score_window)))
 			if(np.mean(score_window) >= 200.0):
 				print("Solved at Episode: {} Avg Reward: {}".format(episode, np.mean(score_window)))
 				break
