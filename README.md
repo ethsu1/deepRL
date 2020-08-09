@@ -17,10 +17,8 @@ the general training framework of machine learning. That's when I learned that t
 model is trying to approximate the Q value table. In classical (strictly) Q learning implementations,
 you have a table/dictionary to map state-action pairs to Q-values. In deep Q learning, the machine learning
 model is trying to approximate the underlying function of the Q-table. So the 'true values'
-would be the temporal difference updates aka the new Q value at a particular state
-
-![equation](https://latex.codecogs.com/gif.latex?R%28s%29%20&plus;%20%5Cgamma%20*%20max_a%20Q%28s%27%2Ca%29). The model will output the particular Q value for state and action Q(s,a)
-and the 'true value' will be <img src="https://render.githubusercontent.com/render/math?math=R(s)%2B{\gamma} * max_a Q(s',a)">
+would be the temporal difference updates aka the new Q value at a particular state ![equation](https://latex.codecogs.com/gif.latex?R%28s%29%20&plus;%20%5Cgamma%20*%20max_a%20Q%28s%27%2Ca%29). The model will output the particular Q value for state and action Q(s,a)
+and the 'true value' will be ![equation](https://latex.codecogs.com/gif.latex?R%28s%29%20&plus;%20%5Cgamma%20*%20max_a%20Q%28s%27%2Ca%29)
 
 
 
