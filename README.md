@@ -18,14 +18,10 @@ model is trying to approximate the Q value table. In classical (strictly) Q lear
 you have a table/dictionary to map state-action pairs to Q-values. In deep Q learning, the machine learning
 model is trying to approximate the underlying function of the Q-table. So the 'true values'
 would be the temporal difference updates aka the new Q value at a particular state
-(R(s) + discount * max_a Q(s',a)). The model will output the particular Q value for state and action Q(s,a)
+<img src="https://render.githubusercontent.com/render/math?math=R(s)%2B{\gamma} * max_a Q(s',a)">. The model will output the particular Q value for state and action Q(s,a)
 and the 'true value' will be <img src="https://render.githubusercontent.com/render/math?math=R(s)%2B{\gamma} * max_a Q(s',a)">
 
-(R(s) + discount * max_a Q(s',a))
 
-
-
-<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 
 # Why use deep Q Learning or Q learning with ML function approximators?
 The goal of Q learning is to find the optimal policy by finding the optimal Q-values (aka the max expected future reward of state-action pairs).
