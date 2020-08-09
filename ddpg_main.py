@@ -91,21 +91,22 @@ class DDPGAI:
 			score = 0
 			#for j in range(400):
 			i = 0
-			while True:
+			done = False
+			while score < 300:
 				#state = np.asarray(state, dtype=np.float64)
 				state = np.reshape(state, (1,self.state_space))
 				action = self.model.action(state)
 				self.env.render()
 				state, reward, done, _ = self.env.step(action[0])
-				score += reward
-				if done:
+				if(done):
 					break
+				score += reward
 				i += 1
 			print(i)
 			print(score)
 		self.env.close()
 
 ddpg = DDPGAI(DDPG, 'BipedalWalker-v3', gamma=0.99, batch_size=64)
-ddpg.train(1000, "Deep Deterministic Policy Gradient")
-#ddpg.watch()
+#ddpg.train(1000, "Deep Deterministic Policy Gradient")
+ddpg.watch()
 

@@ -145,14 +145,22 @@ with hidden dimensions of 400 and 300 respectively. I utilized soft updates to u
 I specified the learning rates according to the paper as well, with actor's learning rate being 1e-4 and the critic's learning rate being 1e-3.
 
 # Results of DDPG
-Training the model took alot longer than DQN because we are exploring continuous actions. I trainined the model on the BipedalWalker-v3 environment
-as well as the LunarLanderContinuous-v2 environment. 
-
+Training the model took alot longer than DQN because we are exploring continuous actions. I trained the model on LunarLanderContinuous-v2 environment.
+The results are below.
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_LunarLanderContinuous_loss_(critic).png?raw=true "Lunar Lander critic loss")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_LunarLanderContinuous_loss_(actor).png?raw=true "Lunar Lander critic actor")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_LunarLanderContinuous.png?raw=true "Lunar Lander reward")
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/ddpg_lunar.gif?raw=true)
 
+
+
+According the github repo, the BipedalWalker-V3 environment is considered solved after an average score of 300 over the past 100 episodes. However,
+it turns out this environment terminates when it gets very close to the edge of the cliff. So it is highly unlikely to even get a score of 300. Therefore, I lowered the "solved" criteria. And the agent still is able to learn to walk and reach the end of the trrain.
+
+[Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_loss_(critic).png?raw=true "Bipedal critic loss")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_loss_(actor).png?raw=true "Bipedal critic actor")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient.png?raw=true "Bipedal reward")
+![alt text](https://github.com/ethsu1/deepRL/blob/master/images/ddpg_bipedal.gif?raw=true)
 
 
 # Conclusion

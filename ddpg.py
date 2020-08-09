@@ -164,9 +164,9 @@ class DDPG:
 		return tf.random.normal(shape=(1,self.actions),mean=0.0, stddev=0.1)
 
 	def save(self):
-		self.actor.save_weights('./bipedal/ddpg_actor_bipedal_final.pth')
-		self.critic.save_weights('./bipedal/ddpg_critic_bipedal_final.pth')
+		self.actor.save_weights('./bipedal/ddpg_actor_bipedal.pth')
+		self.critic.save_weights('./bipedal/ddpg_critic_bipedal.pth')
 
 	def load(self):
-		self.actor.load_weights('./bipedal/ddpg_actor_bipedal_final.pth')
-		self.critic.load_weights('./bipedal/ddpg_critic_bipedal_final.pth')
+		self.actor.load_weights('./bipedal/ddpg_actor_bipedal.pth')
+		self.critic.load_weights('./bipedal/ddpg_critic_bipedal.pth')
