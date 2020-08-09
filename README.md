@@ -157,7 +157,7 @@ The results are below.
 According the github repo, the BipedalWalker-V3 environment is considered solved after an average score of 300 over the past 100 episodes. However,
 it turns out this environment terminates when it gets very close to the edge of the cliff. So it is highly unlikely to even get a score of 300. Therefore, I lowered the "solved" criteria. And the agent still is able to learn to walk and reach the end of the trrain.
 
-[Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_loss_(critic).png?raw=true "Bipedal critic loss")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_loss_(critic).png?raw=true "Bipedal critic loss")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient_loss_(actor).png?raw=true "Bipedal critic actor")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient.png?raw=true "Bipedal reward")
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/ddpg_bipedal.gif?raw=true)
