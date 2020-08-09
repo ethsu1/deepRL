@@ -162,6 +162,7 @@ it turns out this environment terminates when it gets very close to the edge of 
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient.png?raw=true "Bipedal reward")
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/ddpg_bipedal.gif?raw=true)
 
+As you can tell with the BipedalWalker-v3 environment, DDPG is sort of unstable. It gets close to solving the environment (perhaps with a suboptimal policy as seen with the reward graph) and then sort of regresses before it finds a good policy again and solves the environment. But overall the agent does reasonably well, considering it was tripping in the earlier episodes before learning to walk and traverse the terrain in the later episodes.
 
 # Conclusion
 Overall I strengthened my knowledge about deep reinforcement learning quite a bit and was able to understand the basics of policy gradient methods.
