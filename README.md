@@ -20,6 +20,7 @@ model is trying to approximate the underlying function of the Q-table. So the 't
 would be the temporal difference updates aka the new Q value at a particular state
 (R(s) + discount * max_a Q(s',a)). The model will output the particular Q value for state and action Q(s,a)
 and the 'true value' will be (R(s) + discount * max_a Q(s',a))
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 
 # Why use deep Q Learning or Q learning with ML function approximators?
 The goal of Q learning is to find the optimal policy by finding the optimal Q-values (aka the max expected future reward of state-action pairs).
