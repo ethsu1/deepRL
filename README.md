@@ -18,7 +18,7 @@ model is trying to approximate the Q value table. In classical (strictly) Q lear
 you have a table/dictionary to map state-action pairs to Q-values. In deep Q learning, the machine learning
 model is trying to approximate the underlying function of the Q-table. So the 'true values'
 would be the temporal difference updates aka the new Q value at a particular state ![equation](https://latex.codecogs.com/gif.latex?R%28s%29%20&plus;%20%5Cgamma%20*%20max_a%20Q%28s%27%2Ca%29). The model will output the particular Q value for state and action Q(s,a)
-and the 'true value' will be ![equation](https://latex.codecogs.com/gif.latex?R%28s%29%20&plus;%20%5Cgamma%20*%20max_a%20Q%28s%27%2Ca%29)
+and the 'true value' will be ![equation](https://latex.codecogs.com/gif.latex?R%28s%29%20&plus;%20%5Cgamma%20*%20max_a%20Q%28s%27%2Ca%29). 
 
 
 
@@ -91,6 +91,12 @@ the epsilon greedy policy, which is the same policy it uses to interact with the
 takes the absolute greedy policy (aka the action that yields that largest expected reward) but uses the epsilon greedy policy
 to interact with environment (hence why Q learning is off-policy). 
 
+Q learning update policy: https://latex.codecogs.com/gif.latex?max_a%20Q%28s%27%2Ca%29
+Q learning behavior policy: https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.
+
+SARSA update policy: https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.
+SARSA behavior policy: https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.
+
 # How did deep SARSA do compared to deep Q learning?
 SARSA is basically more conservative in a sense because in the earlier episodes, its more likely to take random actions
 due to a higher epsilon value. Once the epsilon decays, it begins to take the more optimal actions. In the earlier episodes,
@@ -115,7 +121,9 @@ to discretize the actions but it probably wouldn't work that well or solve whate
 Since you can't use Q learning and SARSA for continuous action spaces, we look towards policy gradients. 
 Q learning and SARSA are value estimation algorithms where you are essentially choosing an action via Q-values. This where policy gradients
 come into play because they work for continuous action spaces. Now because our actions are continuous, whatever functions we
-are trying to estimate are differentiable with respect to actions. So now we can directly learn a policy function rather indirectly
+are trying to estimate are differentiable with respect to actions. 
+INSERT EQUATION
+So now we can directly learn a policy function rather indirectly
 learning it via a value function (like Q learning). We can directly learn a policy function because the goal of a policy gradient
 is to maximize expected future rewards. Usually a neural network learns the policy function and basically learns a mean and standard deviation 
 for each dimension of the action space. For example, there can be 4 actions, like jump, crouch, move left, and move right. But how would we determine
@@ -130,7 +138,7 @@ outputs via learning the Q value function. DDPG is like an extension of deep Q l
 But notice that DDPG learns a deterministic policy. That means it won't be learning the mean and standard deviation of each action dimension as
 that would require us to sample from probability distribution to know how much of each action to take, making it a stochastic policy.
 So what does the actor neural network output then? The actor network would just ouput the mean of each action dimension and utilize those means
-as the actions the agent would take.
+as the actions the agent would take. So basically DDPG learns only the mean rather than the mean and standard deviation.
 
 # How to handle exploration in continuous action spaces?
 In deep Q learning, we followed an epsilon greedy policy that allowed the agent to explore and exploit best actions based on a decaying 
@@ -163,7 +171,7 @@ it turns out this environment terminates when it gets very close to the edge of 
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/Deep_Deterministic_Policy_Gradient.png?raw=true "Bipedal reward")
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/ddpg_bipedal.gif?raw=true)
 
-As you can tell with the BipedalWalker-v3 environment, DDPG is sort of unstable. It gets close to solving the environment (perhaps with a suboptimal policy as seen with the reward graph) and then sort of regresses before it finds a good policy again and solves the environment. But overall the agent does reasonably well, considering it was tripping in the earlier episodes before learning to walk and traverse the terrain in the later episodes.
+As you can tell with the BipedalWalker-v3 environment, DDPG is sort of unstable. It gets close to solving the environment (perhaps with a suboptimal policy as seen with the reward graph) and then sort of regresses before it finds a good policy again and "solves" the environment. But overall the agent does reasonably well, considering it was tripping in the earlier episodes before learning to walk and traverse the terrain in the later episodes.
 
 # Conclusion
 Overall I strengthened my knowledge about deep reinforcement learning quite a bit and was able to understand the basics of policy gradient methods.
