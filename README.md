@@ -128,14 +128,20 @@ to discretize the actions but it probably wouldn't work that well or solve whate
 Since you can't use Q learning and SARSA for continuous action spaces, we look towards policy gradients. 
 Q learning and SARSA are value estimation algorithms where you are essentially choosing an action via Q-values. This where policy gradients
 come into play because they work for continuous action spaces. Now because our actions are continuous, whatever functions we
-are trying to estimate are differentiable with respect to actions. 
-INSERT EQUATION
-So now we can directly learn a policy function rather indirectly
-learning it via a value function (like Q learning). We can directly learn a policy function because the goal of a policy gradient
+are trying to estimate are differentiable with respect to actions. And if we have a parameterized policy, the functions we are trying to
+estimate are also differentiable with respect to the parameters.\
+![equation](https://latex.codecogs.com/gif.latex?%5Cpi_%5Ctheta%28s%29%20%3D%20a)\
+![equation](https://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20%5Cpi_%5Ctheta%28s%29%7D%7B%5Cpartial%20%5Ctheta%7D%20%3D%20%5Cfrac%7B%5Cpartial%20a%7D%7B%5Cpartial%20%5Ctheta%7D)
+
+
+So now we can directly learn a policy function rather indirectly learning it via a value function (like Q learning). We can directly learn a policy function because the goal of a policy gradient
 is to maximize expected future rewards. Usually a neural network learns the policy function and basically learns a mean and standard deviation 
 for each dimension of the action space. For example, there can be 4 actions, like jump, crouch, move left, and move right. But how would we determine
 how much to do each action for a given state? For a stochastic policy, we use the neural network and its learned parameters of mean and standard deviation to determine how much of each action do. The mean and standard deviation can be used to specify a Gaussian distribution and we sample 
-from that distribution to know how much of each action to do. A policy gradient wants to increase the probabilities of  actions that lead to higher rewards and decreease the probabilities of actions that lead to lower rewards. Hence we sample from those specificed probability distributions 
+from that distribution to know how much of each action to do. 
+
+INSERT IMAGE
+A policy gradient wants to increase the probabilities of  actions that lead to higher rewards and decreease the probabilities of actions that lead to lower rewards. Hence we sample from those specificed probability distributions 
 in order to know how to select actions in a continuous action space.
 
 
@@ -146,6 +152,8 @@ But notice that DDPG learns a deterministic policy. That means it won't be learn
 that would require us to sample from probability distribution to know how much of each action to take, making it a stochastic policy.
 So what does the actor neural network output then? The actor network would just ouput the mean of each action dimension and utilize those means
 as the actions the agent would take. So basically DDPG learns only the mean rather than the mean and standard deviation.
+
+SHOW HOW PARAMETERS ACTOR AND CRITIC ARE DIFFERENTIABLE WITH RESPECT TO ACTIONS
 
 # How to handle exploration in continuous action spaces?
 In deep Q learning, we followed an epsilon greedy policy that allowed the agent to explore and exploit best actions based on a decaying 
