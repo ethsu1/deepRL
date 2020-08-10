@@ -91,11 +91,11 @@ the epsilon greedy policy, which is the same policy it uses to interact with the
 takes the absolute greedy policy (aka the action that yields that largest expected reward) but uses the epsilon greedy policy
 to interact with environment (hence why Q learning is off-policy). 
 
-Q learning update policy: https://latex.codecogs.com/gif.latex?max_a%20Q%28s%27%2Ca%29
-Q learning behavior policy: https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.
+Q learning update policy: ![equation](https://latex.codecogs.com/gif.latex?max_a%20Q%28s%27%2Ca%29)
+Q learning behavior policy: ![equation](https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.)
 
-SARSA update policy: https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.
-SARSA behavior policy: https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.
+SARSA update policy: ![equation](https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.)
+SARSA behavior policy: ![equation](https://latex.codecogs.com/gif.latex?action%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%5E%7B%7D%20random_a%20%3A%20P%28x%29%20%3C%20%5Cvarepsilon%20%5C%5C%20max_aQ%28s%27%2Ca%29%20%3A%20P%28x%29%20%5Cgeq%20%5Cvarepsilon%20%5Cend%7Bmatrix%7D%5Cright.)
 
 # How did deep SARSA do compared to deep Q learning?
 SARSA is basically more conservative in a sense because in the earlier episodes, its more likely to take random actions
