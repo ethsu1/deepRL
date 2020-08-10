@@ -117,7 +117,7 @@ But it eventually "solved" the environment as seen below (in ~550 episodes)
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SARSA_Neural_Network_loss.png?raw=true "sarsa loss")
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/sarsa.gif?raw=true)
 
-# When does Q Learning and SARSA fail?
+# When do Q Learning and SARSA fail?
 Q learning (even with its ML variants) doesn't led well to real world scenarios because the action space isn't discrete.
 You can no longer find the action that leads to max Q value because there infinite potential actions. For example,
 one of the interesting applications of reinforcement learning is robotic control. Take a robotic hand with 5 fingers. For it learn
@@ -153,7 +153,8 @@ epsilon value. It was easy to explore via random actions because we had finite d
 spaces. How would the agent explore the possible action space? In the DDPG paper, the authors sampled a vector from time-correleated OU Noise,
 which to my knowledge is some sort of distribution. But it turns out simple mean-zero Gaussian noise works just as well. So when implementing 
 my DDPG model, I sampled from the Gaussian distribution that had zero mean and 0.1 standard deviation. I wanted to keep everything relatively 
-simple so that I could actually learn all the aspects of the DDPG algorithm/model.
+simple so that I could actually learn all the aspects of the DDPG algorithm/model. So during training, the way the agent takes an action looks like this:\
+![equation](https://latex.codecogs.com/gif.latex?%5Cpi%20%28s%29%20&plus;%20N%28%5Cmu%20%3D0%2C%5Csigma%20%3D0.1%29)
 
 # DDPG Architecture
 I more or less followed the architecture laid out in the DDPG paper, having my actor and critic models being a two layer neural network
