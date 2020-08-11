@@ -140,7 +140,7 @@ for each dimension of the action space. For example, there can be 4 actions, lik
 how much to do each action for a given state? For a stochastic policy, we use the neural network and its learned parameters of mean and standard deviation to determine how much of each action do. The mean and standard deviation can be used to specify a Gaussian distribution and we sample 
 from that distribution to know how much of each action to do. 
 
-INSERT IMAGE
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/probability.png?raw=true)
 A policy gradient wants to increase the probabilities of  actions that lead to higher rewards and decreease the probabilities of actions that lead to lower rewards. Hence we sample from those specificed probability distributions 
 in order to know how to select actions in a continuous action space.
 
