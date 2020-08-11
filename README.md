@@ -67,20 +67,20 @@ like a neural network (which has nonlinear capabilities). For example, a larger 
 right boost (action) won't necessarily lead to higher expected future reward. After trying to model the Q function
 with linear regression and a quasi SVM regression, the end results were not too promising. Watching the agent
 in the environment after training of 2000 episodes, you can tell the agent learned something but obviously 
-it did not learn the optimal polciy. The rewards for each episode did not increase and the loss did not go down per episode.
+it did not learn the optimal polciy. The rewards for each episode did not increase and the loss did not go down per episode.\
 
-Linear regression unable to learn the nonlinear patterns of landing (as seen with its barrel roll attempts)
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning.png?raw=true "linear regression q learning")
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")
+Linear regression unable to learn the nonlinear patterns of landing (as seen with its barrel roll attempts)\
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning.png?raw=true "linear regression q learning")\
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Linear_Regression_Q_Learning_loss.png?raw=true "linear regression q learning loss")\
 
-![alt text](https://github.com/ethsu1/deepRL/blob/master/images/linear_regression.gif?raw=true)
+![alt text](https://github.com/ethsu1/deepRL/blob/master/images/linear_regression.gif?raw=true)\
 
 
 Quasi SVM regression worked to some extent but could not solve the environment.\
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")\
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")\
 
-![alt text](https://github.com/ethsu1/deepRL/blob/master/images/svm.gif?raw=true)
+![alt text](https://github.com/ethsu1/deepRL/blob/master/images/svm.gif?raw=true)\
 
 
 On the other hand, the neural network was able to find an optimal policy reasonably well, considering it finished training in ~425 episodes.\
