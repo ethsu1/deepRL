@@ -1,3 +1,9 @@
 theme: minima
 title: Understanding Reinforcement Learning and Machine Learning
 markdown: kramdown
+
+author:
+  name: Ethan Hsu
+minima:
+  social_links:
+    github: ethsu1
