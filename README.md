@@ -1,3 +1,6 @@
+* TOC
+{:toc}
+
 # What is this page about?
 I've always been interested in machine learning and reinforcement learning. So I wanted
 to document this project experimenting with machine learning and reinforcement learning.

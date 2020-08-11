@@ -1,3 +1,3 @@
 theme: jekyll-theme-minimal
 title: Understanding Reinforcement Learning and Machine Learning
-markdown: GFM
+markdown: kramdown
