@@ -76,20 +76,19 @@ Linear regression unable to learn the nonlinear patterns of landing (as seen wit
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/linear_regression.gif?raw=true)
 
 
-Quasi SVM regression worked to some extent but could not solve the environment.
+Quasi SVM regression worked to some extent but could not solve the environment.\
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning.png?raw=true "svm regression q learning")
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/SVM_Regression_Q_Learning_loss.png?raw=true "svm regression q learning loss")
 
 ![alt text](https://github.com/ethsu1/deepRL/blob/master/images/svm.gif?raw=true)
 
 
-On the other hand, the neural network was able to find an optimal policy reasonably well, considering it finished training in ~425 episodes. 
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural network q learning")
-![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning_loss.png?raw=true "neural network q learning loss")
+On the other hand, the neural network was able to find an optimal policy reasonably well, considering it finished training in ~425 episodes.\
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning.png?raw=true "neural network q learning")\
+![Image](https://github.com/ethsu1/deepRL/blob/master/images/Neural_Network_Q_Learning_loss.png?raw=true "neural network q learning loss")\
 
-![alt text](https://github.com/ethsu1/deepRL/blob/master/images/dqn.gif?raw=true)
-Now that I had my fun messing around with different ML models 
-with Q learning, I wanted to recreate models that would "solve" the environment using different reinforcement learning algorithms
+![alt text](https://github.com/ethsu1/deepRL/blob/master/images/dqn.gif?raw=true)\
+Now that I had my fun messing around with different ML models with Q learning, I wanted to recreate models that would "solve" the environment using different reinforcement learning algorithms
 
 # What's the difference between SARSA and Q Learning?
 SARSA is an on-policy algorithm while Q learning is off-policy. So this means for SARSA, when updating the Q-values, it follows
