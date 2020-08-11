@@ -159,9 +159,8 @@ state and action and outputs a Q-value. Then we do mean squared error to calcula
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/targetac.png?raw=true)
 ![Image](https://github.com/ethsu1/deepRL/blob/master/images/modelac.png?raw=true)
 
-The reason why we can now directly learn the policy is because the action space is continuous. We take the model critic's output. Because the model critic network is trying to learn the Q value function and we are now dealing with continuous action spaces, we can now compute the gradient of the Q value function
-with respect to parameters of the actor network.
-![equation] (https://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20Q%28s%2Ca%29%7D%7B%5Cpartial%20%5Ctheta%7D%20%3D%20%5Cfrac%7B%5Cpartial%20Q%28s%2Ca%29%7D%7B%5Cpartial%20%5Cpi_%5Ctheta%28s%29%20%7D%20*%20%5Cfrac%7B%5Cpartial%20%5Cpi_%5Ctheta%28s%29%7D%7B%5Cpartial%20%5Ctheta%7D)
+The reason why we can now directly learn the policy is because the action space is continuous. We take the model critic's output. Because the model critic network is trying to learn the Q value function and we are now dealing with continuous action spaces, we can now compute the gradient of the Q value function with respect to parameters of the actor network.\
+![equation](https://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20Q%28s%2Ca%29%7D%7B%5Cpartial%20%5Ctheta%7D%20%3D%20%5Cfrac%7B%5Cpartial%20Q%28s%2Ca%29%7D%7B%5Cpartial%20%5Cpi_%5Ctheta%28s%29%20%7D%20*%20%5Cfrac%7B%5Cpartial%20%5Cpi_%5Ctheta%28s%29%7D%7B%5Cpartial%20%5Ctheta%7D)
 
 
 The actor network is trying to increase the probabilities of actions that lead to higher rewards, so we do gradient ascent after computing the gradient of the output of model critic network. The output of the critic network is the Q-value (which is expected reward). Taking the gradient
